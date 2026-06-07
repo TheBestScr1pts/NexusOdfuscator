@@ -11,8 +11,11 @@ document.addEventListener("DOMContentLoaded",()=>{let n=document.getElementById(
 `,k+=`local ${u} = setmetatable({},{__index=function(t,k) if k == "NX" then ${$}[3]("NX Tamper Detected") end if ${$}[k] then return ${$}[k] end return _G[k] or ${$}[4]()[k] end,__newindex=function(t,k,v) ${$}[3]("Error") end,__metatable="NexusOdfucator"})
 `,k+=`local ${f}="${i}" local ${g}=${c} local ${s}=""
 `,k+=`for ${h} in ${$}[6](${f}, "([^,]+)") do
-`,k+=`local ${m}=tonumber(${$}[7](${h}, "%d+"))
-`,k+=`if ${m} then ${s}=${s}..${$}[5](${m}-${g}) end
+`,k+=`    local ${m} = ${$}[7](${h}, "%d+")
+`,k+=`    if ${m} then
+`,k+=`        ${m} = tonumber(${m})
+`,k+=`        ${s} = ${s} .. ${$}[5](${m} - ${g})
+`,k+=`    end
 `,k+=`end
-`,k+=`local ${x},${v}=${u}[1](${s})
+`,k+=`local ${x},${v} = ${u}[1](${s})
 `,k+=`if ${x} then ${u}[2](${x},${u}) ${x}() else ${u}[3](tostring(${v})) end`}n.addEventListener("click",()=>{r.value=c(t.value)}),e.addEventListener("click",()=>{t.value="",r.value=""})});
