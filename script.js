@@ -1,63 +1,10 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const obfuscateBtn = document.getElementById("obfuscateBtn");
-    const resetBtn = document.getElementById("resetBtn");
-    const luaInput = document.getElementById("luaInput");
-    const luaOutput = document.getElementById("luaOutput");
-
-    function getRandomJunkChar() {
-        const junk = "abcdefghijklmnopqrstuvwxyz";
-        return junk.charAt(Math.floor(Math.random() * junk.length));
-    }
-
-    function generateRandomName(length) {
-        const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        let result = "_";
-        for (let i = 0; i < length; i++) {
-            result += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        return result;
-    }
-
-    function obfuscateEngine(originalCode) {
-        if (!originalCode.trim()) return "-- Error";
-
-        const cryptoKey = Math.floor(Math.random() * 100) + 30; 
-        let dynamicStream = "";
-
-        for (let i = 0; i < originalCode.length; i++) {
-            dynamicStream += (originalCode.charCodeAt(i) + cryptoKey) + getRandomJunkChar() + (i < originalCode.length - 1 ? "," : "");
-        }
-
-        const tableVar = generateRandomName(7);
-        const envVar = generateRandomName(6);
-        const streamVar = generateRandomName(8);
-        const keyVar = generateRandomName(5);
-        const cleanStrVar = generateRandomName(8);
-        const blockVar = generateRandomName(5);
-        const cleanNumVar = generateRandomName(6);
-        const executeVar = generateRandomName(6);
-        const errorVar = generateRandomName(6);
-
-        let output = `-- NexusOdfucator\n`;
-        output += `local ${tableVar} = {[1]=loadstring,[2]=setfenv,[3]=error,[4]=getfenv,[5]=string.char,[6]=string.gmatch,[7]=string.match}\n`;
-        output += `local ${envVar} = setmetatable({},{__index=function(t,k) if ${tableVar}[k] then return ${tableVar}[k] end return _G[k] or ${tableVar}[4]()[k] end,__newindex=function(t,k,v) ${tableVar}[3]("Error") end,__metatable="NexusOdfucator"})\n`;
-        output += `local ${streamVar}="${dynamicStream}" local ${keyVar}=${cryptoKey} local ${cleanStrVar}=""\n`;
-        output += `for ${blockVar} in ${tableVar}[6](${streamVar}, "([^,]+)") do\n`;
-        output += `local ${cleanNumVar}=tonumber(${tableVar}[7](${blockVar}, "%d+"))\n`;
-        output += `if ${cleanNumVar} then ${cleanStrVar}=${cleanStrVar}..${tableVar}[5](${cleanNumVar}-${keyVar}) end\n`;
-        output += `end\n`;
-        output += `local ${executeVar},${errorVar}=${envVar}[1](${cleanStrVar})\n`;
-        output += `if ${executeVar} then ${envVar}[2](${executeVar},${envVar}) ${executeVar}() else ${envVar}[3](tostring(${errorVar})) end`;
-        
-        return output;
-    }
-
-    obfuscateBtn.addEventListener("click", () => {
-        luaOutput.value = obfuscateEngine(luaInput.value);
-    });
-
-    resetBtn.addEventListener("click", () => {
-        luaInput.value = "";
-        luaOutput.value = "";
-    });
-});
+document.addEventListener("DOMContentLoaded",()=>{let e=document.getElementById("obfuscateBtn"),t=document.getElementById("resetBtn"),n=document.getElementById("luaInput"),r=document.getElementById("luaOutput");function l(){let e="abcdefghijklmnopqrstuvwxyz";return e.charAt(Math.floor(Math.random()*e.length))}function o(e){let t="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",n="_";for(let r=0;r<e;r++)n+=t.charAt(Math.floor(Math.random()*t.length));return n}function a(e){if(!e.trim())return"-- Error";let t=Math.floor(100*Math.random())+30,n="";for(let r=0;r<e.length;r++)n+=e.charCodeAt(r)+t+l()+(r<e.length-1?",":"");let a=o(7),d=o(6),u=o(8),c=o(5),i=o(8),f=o(5),g=o(6),s=o(6),h=o(6),m=`-- NexusOdfucator
+`;return m+=`local ${a} = {[1]=loadstring,[2]=setfenv,[3]=error,[4]=getfenv,[5]=string.char,[6]=string.gmatch,[7]=string.match}
+`,m+=`local ${d} = setmetatable({},{__index=function(t,k) if ${a}[k] then return ${a}[k] end return _G[k] or ${a}[4]()[k] end,__newindex=function(t,k,v) ${a}[3]("Error") end,__metatable="NexusOdfucator"})
+`,m+=`local ${u}="${n}" local ${c}=${t} local ${i}=""
+`,m+=`for ${f} in ${a}[6](${u}, "([^,]+)") do
+`,m+=`local ${g}=tonumber(${a}[7](${f}, "%d+"))
+`,m+=`if ${g} then ${i}=${i}..${a}[5](${g}-${c}) end
+`,m+=`end
+`,m+=`local ${s},${h}=${d}[1](${i})
+`,m+=`if ${s} then ${d}[2](${s},${d}) ${s}() else ${d}[3](tostring(${h})) end`}e.addEventListener("click",()=>{r.value=a(n.value)}),t.addEventListener("click",()=>{n.value="",r.value=""})});
